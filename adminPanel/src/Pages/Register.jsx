@@ -3,7 +3,7 @@ import RegisterTitle from '../Components/RegisterTitle'
 
 const Register = () => {
     return (
-        <div>
+        <div className='mx-5 p-5 '>
             <RegisterTitle />
         </div>
     )
