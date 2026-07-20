@@ -15,6 +15,7 @@ const employeeSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
+        enum: ['Male', 'Female'],
 
 
     },
@@ -27,15 +28,17 @@ const employeeSchema = new mongoose.Schema({
 
     },
     dateOfEmployment: {
-        type: Date,
-        default: Date.now
+        type: String,
+
     },
     jobTitle: {
         type: String,
+        enum: ["Coordinator", "Director of Health and Social Rehabilitation", " Director of Vocational Training", " Clinical Psychology", "Trainer", "Assistant Trainer", "Mental Nurse Officer", "Community Environmental Health Officer", "Database and ICT", "Chief Cook", "Cook", "Nurse", "Laboratory Technician", "Electrician", "Logistic Officer", "Production Officer", "Navigator", "Patient Attendant"]
 
     },
     unit: {
         type: String,
+        enum: ['Administration', 'Vocational Training', 'Health And Social Rehabilition'],
 
     },
     employmentStatus: {
@@ -44,11 +47,12 @@ const employeeSchema = new mongoose.Schema({
         default: 'Active'
     },
     computerAssigned: {
-        type: Boolean,
-        default: false
+        type: String,
+        enum: ["Yes", "No"]
     },
     educationLevel: {
         type: String,
+        enum: ['A2', 'A1', 'bachelor', 'Master', 'PHD']
 
     },
     specialization: {

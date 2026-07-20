@@ -1,6 +1,7 @@
 import express from "express";
 import connectDB from "./config/mongodb.js";
 import employerRouter from "./routes/employerRoute.js";
+import cors from 'cors'
 
 
 const app = express();
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 //Middleware
 app.use(express.json());
+app.use(cors())
 
 //Connecting to MongoDB
 connectDB();
