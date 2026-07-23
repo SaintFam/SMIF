@@ -138,7 +138,7 @@ const PersonalInfo = ({ employee, setEmployee }) => {
                             </label>
                             <div className='flex  items-center bg-white  shadow-xl mb-3'>
                                 <FaPhoneAlt size={20} className="ml-5 text-[#D89D1E]  flex-shrink-0 " />
-                                <input onChange={handleEveryChange} value={employee.phoneNumber} name='phoneNumber' type="email" placeholder='Enter Phone Number' className='outline-none p-3 2xl:p-6 text-xl 2xl:text-4xl' />
+                                <input onChange={handleEveryChange} value={employee.phoneNumber} name='phoneNumber' type="number" placeholder='Enter Phone Number' className='outline-none p-3 2xl:p-6 text-xl 2xl:text-4xl' />
                             </div>
                         </div>
                     </div>

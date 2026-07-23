@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaSave } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { toast } from 'sonner';
 
 const FormSub = ({ employee, SaveToDatabase }) => {
     return (
@@ -9,7 +10,9 @@ const FormSub = ({ employee, SaveToDatabase }) => {
                 {/** Cancel Button  */}
                 <button
                     type="button"
+                    onClick={() => {
 
+                    }}
                     className="
             w-full sm:w-44 h-12 rounded-xl border border-[#D89B17] text-[#D89B17] font-semibold flex items-center justify-center gap-2 hover:bg-yellow-50 transition-all duration-300">
                     <IoClose className="text-lg" />
@@ -17,6 +20,7 @@ const FormSub = ({ employee, SaveToDatabase }) => {
                 </button>
                 {/** Save  Button  */}
                 <button
+
                     onClick={SaveToDatabase}
                     type="button"
 

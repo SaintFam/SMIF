@@ -75,6 +75,10 @@ const employeeSchema = new mongoose.Schema({
         type: String,
 
     },
+    password: {
+        type: String,
+
+    },
     nextOfKin: {
         type: String,
 
@@ -87,6 +91,7 @@ const employeeSchema = new mongoose.Schema({
         type: String,
 
     },
+
     image: {
         type: String,
 

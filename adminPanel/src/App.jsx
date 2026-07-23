@@ -12,9 +12,20 @@ const App = () => {
       <>
         <Toaster
           position='top-center'
-          richColors
+
           closeButton
-          duration={3000}
+          duration={5000}
+
+          toastOptions={{
+            style: {
+              fontSize: "30px",
+              padding: "10px",
+              borderRadius: "32px",
+              width: "520px"
+
+            }
+          }
+          }
         />
       </>
       <Routes>

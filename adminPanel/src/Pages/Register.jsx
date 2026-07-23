@@ -72,10 +72,25 @@ const Register = () => {
             )
 
             if (response.data.success) {
-                toast.success("Employee Registered SuccessFull", { id: loadingToast })
+                toast.success("Employee Registered SuccessFull",
+                    { id: loadingToast }, {
+                    style: {
+                        color: "#D89D1E",
+                        background: "#f7efef",
+                        border: "1px solid #A87400",
+                    },
+                },)
+
                 console.log("Data Saved SuccessFull")
             } else {
-                toast.error("Failed To save Employee", { id: loadingToast })
+                toast.error("Failed To Save Employee",
+                    { id: loadingToast }, {
+                    style: {
+                        color: "#d81e1e",
+                        background: "#f7efef",
+                        border: "1px solid #A87400",
+                    },
+                },)
             }
 
 
@@ -83,7 +98,14 @@ const Register = () => {
 
         } catch (error) {
             console.log(error)
-            toast.error(error.response?.data?.message || "Something Went Wrong", { id: loadingToast })
+            toast.error(error.response?.data?.message || "Something Went Wrong", {
+                style: {
+                    color: "#d81e1e",
+                    background: "#f7efef",
+                    border: "1px solid #A87400",
+                },
+            }, { id: loadingToast })
+
         }
     }
 
