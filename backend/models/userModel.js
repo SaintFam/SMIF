@@ -33,17 +33,17 @@ const employeeSchema = new mongoose.Schema({
     },
     jobTitle: {
         type: String,
-        enum: ["Coordinator", "Director of Health and Social Rehabilitation", " Director of Vocational Training", " Clinical Psychology", "Trainer", "Assistant Trainer", "Mental Nurse Officer", "Community Environmental Health Officer", "Database and ICT", "Chief Cook", "Cook", "Nurse", "Laboratory Technician", "Electrician", "Logistic Officer", "Production Officer", "Navigator", "Patient Attendant"]
+        enum: ["Coordinator", "Health And Social Rehabilitation", " Director of Vocational Training", "Clinical Psychology", "Trainer", "Assistant Trainer", "Mental Nurse Officer", "Community Environmental Health Officer", "Database and ICT", "Chief Cook", "Cook", "Nurse", "Laboratory Technician", "Electrician", "Logistic Officer", "Production Officer", "Navigator", "Patient Attendant"]
 
     },
     unit: {
         type: String,
-        enum: ['Administration', 'Vocational Training', 'Health And Social Rehabilition'],
+        enum: ['Administration', 'Vocational Training', 'Health And Social Rehabilitation'],
 
     },
     employmentStatus: {
         type: String,
-        enum: ['Active', 'Inactive'],
+        enum: ['Active', 'Not Active'],
         default: 'Active'
     },
     computerAssigned: {
@@ -52,7 +52,7 @@ const employeeSchema = new mongoose.Schema({
     },
     educationLevel: {
         type: String,
-        enum: ['A2', 'A1', 'bachelor', 'Master', 'PHD']
+        enum: ['A2', 'A1', 'A0', 'Masters', 'PHD']
 
     },
     specialization: {

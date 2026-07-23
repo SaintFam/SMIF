@@ -1,5 +1,6 @@
 import Employer from "../models/userModel.js";
 import cloudinary from "../config/cloudinary.js";
+import userModel from "../models/userModel.js";
 
 export const registerEmployer = async (req, res) => {
     try {
@@ -7,7 +8,6 @@ export const registerEmployer = async (req, res) => {
         const {
             firstName,
             lastName,
-            email,
             gender,
             nationalId,
             phoneNumber,
@@ -41,6 +41,18 @@ export const registerEmployer = async (req, res) => {
             folder: "employer_images",
         });
 
+        //Generate Email By First and LastName + @Irc.rw
+        let GeneratedEmail = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@irc.rw`
+        let email = GeneratedEmail
+        //Checking Uniqueness , add Random Number If It Needed  
+        let existEmail = await userModel.findOne({ email })
+        while (existEmail) {
+            const randomNumber = Math.floor(Math.randomNumber * 2) //Any Nub=mber *2 
+            email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${randomNumber}@irc.rw`
+            existEmail = await userModel.findOne({ email })
+        }
+
+
 
         // Create a new employer document
         const employer = await Employer.create({
@@ -68,7 +80,7 @@ export const registerEmployer = async (req, res) => {
         });
 
         res.status(201)
-            .json({ message: "Employer registered successfully", employer });
+            .json({ message: "Employer registered successfully", success: true, employer });
 
     } catch (error) {
         console.error("Error registering employer:", error);

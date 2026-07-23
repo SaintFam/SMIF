@@ -105,15 +105,7 @@ const PersonalInfo = ({ employee, setEmployee }) => {
                             </div>
                         </div>
                         {/* Email Input Field */}
-                        <div className='flex flex-col p-3'>
-                            <label className="block text-sm mb-2 font-bold text-gray-700">
-                                Email
-                            </label>
-                            <div className='flex  items-center bg-white  shadow-xl mb-3'>
-                                <FaEnvelope size={20} className="ml-5 text-[#D89D1E]  flex-shrink-0 " />
-                                <input onChange={handleEveryChange} value={employee.email} name='email' type="email" placeholder='Enter Email' className='outline-none p-3 2xl:p-6 text-xl 2xl:text-4xl' />
-                            </div>
-                        </div>
+
                         {/* Gender Input Field */}
                         <div className='flex flex-col p-3'>
                             <label className="block text-sm mb-2 font-bold text-gray-700">

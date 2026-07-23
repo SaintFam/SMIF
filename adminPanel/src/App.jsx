@@ -1,4 +1,5 @@
 import React from 'react'
+import { Toaster } from "sonner";
 import { Route, Routes } from 'react-router-dom'
 import Dashbord from './Pages/Dashbord'
 import LoginPage from './Pages/LoginPage'
@@ -8,6 +9,14 @@ const App = () => {
 
   return (
     <div>
+      <>
+        <Toaster
+          position='top-center'
+          richColors
+          closeButton
+          duration={3000}
+        />
+      </>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashbord" element={<Dashbord />} />

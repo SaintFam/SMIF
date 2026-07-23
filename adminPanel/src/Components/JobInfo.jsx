@@ -15,11 +15,40 @@ import { TfiAgenda } from "react-icons/tfi";
 import { FcDepartment } from "react-icons/fc"
 
 const JobInfo = ({ employee, setEmployee }) => {
+
+    const jobDepartmentMap = {
+        "Coordinator": "Administration",
+        "Health And Social Rehabilitation": "Health And Social Rehabilitation",
+        "Director of Vocational Training": "Vocational Training",
+        "Clinical Psychology": "Health And Social Rehabilitation",
+        "Trainer": "Vocational Training",
+        "Assistant Trainer": "Vocational Training",
+        "Mental Nurse Officer": "Health And Social Rehabilitation",
+        "Community Environmental Health Officer": "Health And Social Rehabilitation",
+        "Database and ICT": "Administration",
+        "Chief Cook": "Administration",
+        "Cook": "Administration",
+        "Nurse": "Health And Social Rehabilitation",
+        "Laboratory Technician": "Health And Social Rehabilitation",
+        "Electrician": "Administration",
+        "Logistic Officer": "Administration",
+        "Production Officer": "Vocational Training",
+        "Navigator": "Administration",
+        "Patient Attendant": "Health And Social Rehabilitation"
+    }
     const handleEveryChange = (e) => {
-        console.log(e.target.name, e.target.value)
-        setEmployee({
-            ...employee, [e.target.name]: e.target.value
-        })
+        const { name, value } = e.target;
+        //if Job Title Change
+        if (name === "jobTitle") {
+            setEmployee({
+                ...employee,
+                jobTitle: value,
+                unit: jobDepartmentMap[value] || "",
+            })
+        } else
+            setEmployee({
+                ...employee, [e.target.name]: e.target.value
+            })
     }
     return (
         <div className='rounded-3xl border border-yellow-200 bg-white shadow-xl p-5 m-5'>
@@ -49,7 +78,11 @@ const JobInfo = ({ employee, setEmployee }) => {
                                 <CiCalendarDate size={23} className="ml-5 text-[#D89D1E] flex-shrink-0" />
                                 <input name="dateOfEmployment"
                                     value={employee.dateOfEmployment}
-                                    onChange={handleEveryChange} type='date' className='flex bg-white  p-[12px] outline-none text-xl 2xl:text-4xl text-gray-400 peer' placeholder='Date' />
+                                    onChange={handleEveryChange}
+                                    type='date'
+                                    min="2000-01-01"
+                                    max={new Date().toISOString().split("T")[0]}
+                                    className='flex bg-white  p-[12px] outline-none text-xl 2xl:text-4xl text-gray-400 peer' placeholder='Date' />
 
                             </div>
                         </div>
@@ -59,7 +92,7 @@ const JobInfo = ({ employee, setEmployee }) => {
                             <div className="flex  flex-row items-center shadow-xl p-2 rounded-[1em]">
                                 <FaSuitcase size={20} className="text-[#d89b17]" />
                                 <select
-                                    className="flex-1 p-[12px] min-w-0 text-gray-400 text-3xl outline-none"
+                                    className="flex-1 p-[10px] min-w-0 text-gray-400 text-2xl outline-none"
 
                                     name="jobTitle"
                                     value={employee.jobTitle}
@@ -68,10 +101,10 @@ const JobInfo = ({ employee, setEmployee }) => {
                                 >
                                     <option value="">Select Position</option>
                                     <option value="Coordinator">Coordinator</option>
-                                    <option value=" Director of Health and Social Rehabilitation">
+                                    <option value="Health And Social Rehabilitation">
                                         Director of Health and Social Rehabilitation
                                     </option>
-                                    <option value="Director of Vocational Training<">
+                                    <option value="Director of Vocational Training">
                                         Director of Vocational Training
                                     </option>
                                     <option value="Clinical Psychology">
@@ -108,15 +141,15 @@ const JobInfo = ({ employee, setEmployee }) => {
                             <div className="flex  flex-row items-center shadow-xl p-2 rounded-[1em]">
                                 <FcDepartment size={30} className="text-[#d89b17]" />
                                 <select
-                                    className="flex-1 min-w-0 p-[12px] text-gray-400 text-3xl font-medium outline-none"
+                                    className="flex-1 min-w-0 p-[10px] text-gray-400 text-2xl font-medium outline-none"
                                     value={employee.unit}
                                     onChange={handleEveryChange}
                                     name="unit"
-                                    id=""
+
                                 >
                                     <option value="">Select Unit</option>
                                     <option value="Administration">Administration</option>
-                                    <option value="Health and Social Rehabilitation">
+                                    <option value="Health And Social Rehabilitation">
                                         Health and Social Rehabilitation
                                     </option>
                                     <option value="Vocational Training">

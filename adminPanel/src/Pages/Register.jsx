@@ -8,13 +8,13 @@ import NextofKin from '../Components/NextofKin'
 import FormSub from '../Components/FormSub'
 import axios from "axios"
 import { backend_url } from "../App"
+import { toast } from 'sonner'
 
 const Register = () => {
 
     const [employee, setEmployee] = useState({
         firstName: "Musana",
         lastName: "",
-        email: "",
         gender: "",
         nationalId: "",
         phoneNumber: "",
@@ -39,13 +39,12 @@ const Register = () => {
 
     const SaveToDatabase = async (e) => {
         e.preventDefault()
-        console.log("Here It Is")
+        const loadingToast = toast.loading("Saving Employee...")
         try {
 
             const formData = new FormData();
             formData.append("firstName", employee.firstName);
             formData.append("lastName", employee.lastName);
-            formData.append("email", employee.email);
             formData.append("gender", employee.gender);
             formData.append("nationalId", employee.nationalId);
             formData.append("phoneNumber", employee.phoneNumber);
@@ -73,7 +72,10 @@ const Register = () => {
             )
 
             if (response.data.success) {
+                toast.success("Employee Registered SuccessFull", { id: loadingToast })
                 console.log("Data Saved SuccessFull")
+            } else {
+                toast.error("Failed To save Employee", { id: loadingToast })
             }
 
 
@@ -81,7 +83,7 @@ const Register = () => {
 
         } catch (error) {
             console.log(error)
-            console.log(error.response.data.message)
+            toast.error(error.response?.data?.message || "Something Went Wrong", { id: loadingToast })
         }
     }
 
