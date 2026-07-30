@@ -1,7 +1,7 @@
 import Employer from "../models/userModel.js";
 import cloudinary from "../config/cloudinary.js";
 import userModel from "../models/userModel.js";
-import userModel from "../models/userModel.js";
+
 
 export const loginEmployer = async (req, res) => {
     try {
