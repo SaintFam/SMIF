@@ -1,8 +1,11 @@
 import React from 'react'
+import MiddleComponent from '../Components/MiddleComponent'
 
 const Dashbord = () => {
     return (
-        <div>Dashbord</div>
+        <div>
+            <MiddleComponent />
+        </div>
     )
 }
 

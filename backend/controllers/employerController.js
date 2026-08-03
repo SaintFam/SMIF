@@ -3,54 +3,42 @@ import cloudinary from "../config/cloudinary.js";
 import userModel from "../models/userModel.js";
 
 
-export const loginEmployer = async (req, res) => {
+export const LoginAdmin = async (req, res) => {
     try {
-        const { email, password } = req.body;
-
+        const { email, password } = req.body
         // Check if email and password are provided
         if (!email || !password) {
             return res.status(400).json({
                 message: "Email and password are required"
-            });
+            })
         }
 
         // Find employer by email
-        const employer = await userModel.findOne({ email });
-
-        if (!employer) {
-            return res.status(404).json({
-                message: "Invalid email or password"
-            });
-        }
-
-        // Compare password
-        if (employer.password !== password) {
+        const employee = await userModel.findOne({ email })
+        if (!employee) {
             return res.status(401).json({
-                message: "Invalid email or password"
-            });
+                message: "Email Not Found"
+            })
         }
-
-        // Login successful
+        //Compare Password 
+        if (employee.password !== password) {
+            return res.status(401).json({
+                message: "Password Is Incorrect"
+            })
+        }
+        //Login Successfull
         res.status(200).json({
-            message: "Login successful",
-            success: true,
-            employer: {
-                id: employer._id,
-                firstName: employer.firstName,
-                lastName: employer.lastName,
-                email: employer.email,
-                jobTitle: employer.jobTitle,
-                unit: employer.unit
-            }
-        });
+            message: "Login SuccessFully",
+            success: true
+        })
 
     } catch (error) {
-        console.error("Login error:", error);
+        console.log("Login failed", error)
         res.status(500).json({
-            message: "Internal server error"
-        });
+            message: "Internal Server Error"
+        })
     }
-};
+}
 
 export const registerEmployer = async (req, res) => {
     try {
@@ -111,7 +99,7 @@ export const registerEmployer = async (req, res) => {
             password = `${Uniformpass.toLocaleLowerCase()}${randomNumber}`
             existingGeneratedPassword = await userModel.findOne({ password })
         }
-
+        console.log("Password:", password)
         // Create a new employer document
         const employer = await Employer.create({
             firstName,
@@ -137,6 +125,7 @@ export const registerEmployer = async (req, res) => {
             relationshipWithNextOfKin,
             image: result.secure_url
         });
+        console.log(employer)
 
         res.status(201)
             .json({ message: "Employer registered successfully", success: true, employer });

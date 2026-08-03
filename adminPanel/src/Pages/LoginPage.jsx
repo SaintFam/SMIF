@@ -9,35 +9,29 @@ import { backend_url } from '../App';
 import { toast } from 'sonner'
 
 const LoginPage = () => {
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const { navigate } = useContext(AdminContext)
     const LoginSubmition = async () => {
-
         try {
             const loadingToast = toast.loading("Logging In...")
-
             const response = await axios.post(
                 backend_url + "/api/employers/login/", { email, password }
+
             )
             if (response.data.success) {
-                toast.success("Login SuccessFull",
-                    { id: loadingToast }, {
-                    style: {
-                        color: "#D89D1E",
-                        background: "#f7efef",
-                        border: "1px solid #A87400",
-                    },
-                },
-                    navigate("/dashbord"))
+                toast.success("Login SuccessFul",
+                    { id: loadingToast },
+
+                )
+                navigate("/dashbord")
             }
+
         } catch (error) {
             console.log(error)
         }
     }
 
-    const { navigate } = useContext(AdminContext)
     return (
         <div className='h-screen flex'>
             {/* Left Side */}
