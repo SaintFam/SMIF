@@ -12,7 +12,7 @@ const MiddleComponent = () => {
     return (
         <div>
             {/** Middle Component */}
-            <div className='min-h-screen  p-6' >
+            <div className='min-h-screen  p-6 z-20' >
                 <div className='space-y-8'>
                     {/* Header Section */}
                     <div>
@@ -23,7 +23,7 @@ const MiddleComponent = () => {
                     <div className='flex flex-col md:flex-row md:items-center justify-between gap-4 '>
                         <div className='flex flex-col sm:flex-row items-center gap-3 flex-1'>
                             {/** SearchBar input */}
-                            <div className='relative w-full'>
+                            <div className='relative w-full '>
                                 <input
                                     className='w-full pl-4 pr-10 py-2 bg-white border border-yellow-500 rounded-lg focus:outline-none shadow-lg'
                                     type="text"
@@ -62,21 +62,21 @@ const MiddleComponent = () => {
                         </button>
                     </div>
                     {/** Employee Cards */}
-                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6' >
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6' >
                         {
                             employees.map((employee) => (
-                                <div key={employee.id} className='relative bg-white border border-yellow-400 rounded-xl p-6 flex flex-col items-center text-center shadow-lg'>
+                                <div key={employee.id} className='relative bg-white border border-yellow-400 rounded-xl p-6 flex flex-col items-center text-center shadow-lg overflow-hidden'>
                                     {/** Active Status */}
                                     <div className='absolute top-4 right-4 flex items-center gap-1'>
                                         <span className='w-2 h-2 rounded-full bg-green-500'></span>
-                                        <span className='text-green-500 text-xs'>{employee.status}</span>
+                                        <span className='text-green-500 text-xs'>{employee.employmentStatus}</span>
                                     </div>
                                     {/** Profile Image*/}
                                     <div className='mt-2 mb-4'>
                                         <img
                                             src={employee.image[0]}
                                             alt={employee.name}
-                                            className='w-30 h-30 rounded-full object-cover overflow-hidden'
+                                            className='w-30 h-30 rounded-full object-cover overflow-auto'
                                         />
                                     </div>
                                     {/** Employee Info */}
@@ -84,19 +84,19 @@ const MiddleComponent = () => {
                                     <p className='text-gray-600 text-md'>{employee.jobTitle}</p>
                                     {/** Employee Unit */}
                                     <div className='mt-2'>
-                                        <span className='bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded'>
+                                        <span className='line-clamp-1 bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded'>
                                             {employee.unit}
                                         </span>
                                     </div>
                                     {/** Contact Info */}
                                     <div className='w-full  pt-4 space-y-2 text-left border-t border-gray-200'>
                                         <div className='flex items-center gap-2 '>
-                                            <CiMail className='text-gray-500' />
+                                            <div><CiMail className='text-gray-500' /></div>
                                             <span className='text-gray-600 text-sm'>{employee.email}</span>
                                         </div>
                                         <div className='flex items-center gap-2 '>
                                             <FaPhone className='text-gray-500' />
-                                            <span className='text-gray-600 text-sm'>{employee.phone}</span>
+                                            <span className='text-gray-600 text-sm'>{employee.phoneNumber}</span>
                                         </div>
                                     </div>
                                 </div>
