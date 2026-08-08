@@ -4,12 +4,6 @@ import employee2 from "./2.png"
 import employee3 from "./3.png"
 import employee4 from "./4.png"
 import sidebarLogo from "./SideNavBar.png"
-import { FaUser } from "react-icons/fa";
-import { IoMdHome } from "react-icons/io";
-import { RiComputerFill } from "react-icons/ri";
-import { FaFileAlt } from "react-icons/fa";
-import { FaUserShield } from "react-icons/fa";
-import { IoSettingsOutline } from "react-icons/io5";
 
 export const assets = {
     LeftSideBackground,
@@ -17,16 +11,7 @@ export const assets = {
 
 }
 
-const menuItems = [
-    { name: "Employees", icon: <FaUser /> },
-    { name: "DashBoard", icon: <IoMdHome /> },
-    { name: "Computer Assignment", icon: <RiComputerFill /> },
-    { name: "Report", icon: <FaFileAlt /> },
-    { name: "Users & Roles", icon: <FaUserShield /> },
-    { name: "Settings", icon: <IoSettingsOutline /> },
 
-
-]
 
 export const DetailEmp = [
     {
