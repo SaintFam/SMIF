@@ -1,5 +1,5 @@
 import React from 'react'
-import { assets } from '../assets/assets'
+import { assets, DetailEmp } from '../assets/assets'
 import { FaUser } from "react-icons/fa";
 import { IoMdHome } from "react-icons/io";
 import { RiComputerFill } from "react-icons/ri";
@@ -47,11 +47,23 @@ const LeftNavbar = () => {
                 ))
                 }
             </div>
-            <div className='flex  border border-red-700 h-full items-end'>
+            <div className='flex flex-col h-full justify-end'>
                 <div className='flex flex-row text-white items-center gap-3 pl-5'>
                     <span><IoIosLogOut /></span>
                     <span><h3>Logout</h3></span>
                 </div>
+                {DetailEmp.map((employee) => (
+                    <div className='shadow-lg m-5 flex flex-col items-center justify-center rounded-3xl p-5 bg-white/20 backdrop-blur-lg border border-white/10'>
+                        <img src={employee.image} alt="" className='w-20 h-20 rounded-full object-cover' />
+                        <h1 className='text-2xl font-bold text-white mt-2'>{employee.firstName}{" "}{employee.lastName}</h1>
+                        <p className='text-white text-md'>{employee.jobTitle}</p>
+                        <div className='flex gap-2 items-center border border-red-700 '>
+                            <span className='rounded-full bg-green-700 h-3 w-3 '></span>
+                            <span className='text-white '>Online</span>
+                        </div>
+                    </div>
+                ))}
+
             </div>
         </div>
     )
