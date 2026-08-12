@@ -12,7 +12,7 @@ const MiddleComponent = () => {
     return (
         <div>
             {/** Middle Component */}
-            <div className='min-h-screen  p-6 z-20' >
+            <div className=' ml-60 min-h-screen  p-6 z-20' >
                 <div className='space-y-8'>
                     {/* Header Section */}
                     <div>
