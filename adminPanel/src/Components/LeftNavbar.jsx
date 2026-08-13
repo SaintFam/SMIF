@@ -57,7 +57,7 @@ const LeftNavbar = () => {
                         <img src={employee.image} alt="" className='w-20 h-20 rounded-full object-cover' />
                         <h1 className='text-2xl font-bold text-white mt-2'>{employee.firstName}{" "}{employee.lastName}</h1>
                         <p className='text-white text-md'>{employee.jobTitle}</p>
-                        <div className='flex gap-2 items-center border border-red-700 '>
+                        <div className='flex gap-2 items-center '>
                             <span className='rounded-full bg-green-700 h-3 w-3 '></span>
                             <span className='text-white '>Online</span>
                         </div>

@@ -5,6 +5,8 @@ import Dashbord from './Pages/Dashbord'
 import LoginPage from './Pages/LoginPage'
 import Register from './Pages/Register'
 import MiddleComponent from './Components/middleComponent';
+import Test from './Components/test';
+import Mine from './Components/Mine';
 export const backend_url = import.meta.env.VITE_BACKEND_URL
 const App = () => {
 
@@ -34,6 +36,8 @@ const App = () => {
         <Route path="/dashbord" element={<Dashbord />} />
         <Route path="/register" element={<Register />} />
         <Route path="/employees" element={<MiddleComponent />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/mine" element={<Mine />} />
       </Routes>
     </div>
   )
