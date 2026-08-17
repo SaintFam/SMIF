@@ -139,10 +139,10 @@ export const registerEmployer = async (req, res) => {
 export const getAllEmployers = async (req, res) => {
     try {
         const employers = await Employer.find();
-        res.status(200).json({ employers });
+        res.status(200).json({ employers, success: true },);
     } catch (error) {
         console.error("Error fetching employers:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error", success: false });
     }
 }
 
