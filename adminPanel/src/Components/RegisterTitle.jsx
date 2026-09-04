@@ -2,6 +2,7 @@ import React from 'react'
 import { FaUserPlus } from "react-icons/fa";
 
 const RegisterTitle = () => {
+
     return (
         <div className='mb-8'>
             {/* Register Title */}

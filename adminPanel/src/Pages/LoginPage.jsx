@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { assets } from '../assets/assets'
 import { FaUserAlt } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
@@ -8,10 +8,11 @@ import axios from 'axios';
 import { backend_url } from '../App';
 import { toast } from 'sonner'
 
+
 const LoginPage = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { navigate } = useContext(AdminContext)
+    const { navigate, token, setToken } = useContext(AdminContext)
     const LoginSubmition = async () => {
         try {
             const loadingToast = toast.loading("Logging In...")
@@ -20,6 +21,8 @@ const LoginPage = () => {
 
             )
             if (response.data.success) {
+                setToken(response.data.token)
+                localStorage.setItem("token", response.data.token)
                 toast.success("Login SuccessFul",
                     { id: loadingToast },
 
@@ -31,6 +34,13 @@ const LoginPage = () => {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        if (token) {
+            navigate("/dashbord")
+            console.log("Navigate")
+        }
+    }, [token])
 
     return (
         <div className='h-screen flex'>

@@ -8,6 +8,7 @@ export const AdminContext = createContext();
 const AdminContextProvider = (props) => {
     const navigate = useNavigate();
     const [EmployeeData, setEmployeeData] = useState([])
+    const [token, setToken] = useState(localStorage.getItem("token") || null)
 
     {/** FUNCTION FOR FETCHING ALL EMPLOYEES IN DATABASE*/ }
     const fetchEmployee = async () => {
@@ -15,6 +16,7 @@ const AdminContextProvider = (props) => {
             const response = await axios.get(`${backend_url}/api/employers/all`)
             if (response.data.success) {
                 setEmployeeData(response.data.employers)
+
             } else {
                 toast.error(response.data.message)
             }
@@ -24,17 +26,22 @@ const AdminContextProvider = (props) => {
         }
     }
 
+
     useEffect(() => {
         fetchEmployee()
 
     }, [])
 
     useEffect(() => {
-        console.log(EmployeeData)
-    }, [EmployeeData])
-
+        if (!token && localStorage.getItem("token")) {
+            setToken(localStorage.getItem("token"))
+        }
+    }, [])
     const value = {
         navigate,
+        EmployeeData,
+        token,
+        setToken
 
     };
     return (

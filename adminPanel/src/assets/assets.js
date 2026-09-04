@@ -4,10 +4,13 @@ import employee2 from "./2.png"
 import employee3 from "./3.png"
 import employee4 from "./4.png"
 import sidebarLogo from "./SideNavBar.png"
+import desktop from "./DeskTop.png"
+import laptop from "./Laptop.png"
 
 export const assets = {
     LeftSideBackground,
-    sidebarLogo
+    sidebarLogo,
+    desktop
 
 }
 
@@ -39,6 +42,75 @@ export const DetailEmp = [
         image: [employee1,]
     },
 ]
+
+
+export const CompEmployees = [
+    {
+        id: 1,
+        name: "John Doe",
+        role: "Software Engineer",
+        employeeImage: [employee2,],
+        computer: "Lenovo ThinkPad T14",
+        serial: "PF3X1A2",
+        os: "Windows 11 Pro",
+        specs: "Intel i5 • 16GB RAM • 512GB SSD",
+        computerImage: [desktop],
+        status: "Assigned",
+        date: "2024-05-20",
+    },
+    {
+        id: 2,
+        name: "Iradukunda",
+        role: "Navigator",
+        employeeImage: [employee2,],
+        computer: "HP ProBook 450 G8",
+        serial: "5CDI382",
+        os: "Windows 11 Pro",
+        specs: "Intel i7 • 16GB RAM • 512GB SSD",
+        computerImage: [laptop],
+        status: "Assigned",
+        date: "2024-05-18",
+    },
+    {
+        id: 3,
+        name: "Musang",
+        role: "Coordinator",
+        employeeImage: [employee3,],
+        computer: "Dell OptiPlex 7090",
+        serial: "8XJ2M7",
+        os: "Windows 10 Pro",
+        specs: "Intel i5 • 8GB RAM • 256GB SSD",
+        computerImage: [desktop],
+        status: "Maintenance",
+        date: "2024-05-10",
+    },
+    {
+        id: 4,
+        name: "Sarah Wilson",
+        role: "Accountant",
+        employeeImage: [employee4,],
+        computer: "Apple MacBook Air M1",
+        serial: "C02G1Q2",
+        os: "macOS Sonoma",
+        specs: "M1 Chip • 8GB RAM • 256GB SSD",
+        computerImage: [desktop],
+        status: "Assigned",
+        date: "2024-05-01",
+    },
+    {
+        id: 5,
+        name: "Habimana",
+        role: "Data Analyst",
+        employeeImage: [employee4,],
+        computer: null,
+        serial: null,
+        os: null,
+        specs: null,
+        computerImage: null,
+        status: "Not Assigned",
+        date: "—",
+    },
+];
 
 export const employees = [
     {

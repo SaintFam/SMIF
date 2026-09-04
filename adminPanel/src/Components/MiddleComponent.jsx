@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { CiSearch } from "react-icons/ci";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -8,9 +8,11 @@ import { CiMail } from "react-icons/ci";
 import { FaPhone } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineNavigateNext } from "react-icons/md";
+import { AdminContext } from '../Context/adminContext';
 
 
 const MiddleComponent = () => {
+    const { EmployeeData, navigate } = useContext(AdminContext)
 
     // Stores the page we are currently viewing
     const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +24,7 @@ const MiddleComponent = () => {
 
     // Calculate total number of pages
     const totalPages = Math.ceil(
-        employees.length / employeesPerPage
+        EmployeeData.length / employeesPerPage
     );
 
 
@@ -144,7 +146,7 @@ const MiddleComponent = () => {
         <div>
 
             {/** Middle Component */}
-            <div className='ml-60 min-h-screen p-6 z-20'>
+            <div className='min-h-screen p-6 z-20'>
 
                 <div className='space-y-8'>
 
@@ -226,7 +228,9 @@ const MiddleComponent = () => {
 
 
                         {/** Add Employee Button */}
-                        <button className='flex items-center justify-center gap-2 px-5 py-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded-lg'>
+                        <button
+                            onClick={() => { navigate("/register") }}
+                            className='flex items-center justify-center gap-2 px-5 py-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded-lg'>
 
                             <GoPlus />
 
@@ -243,7 +247,7 @@ const MiddleComponent = () => {
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 
                         {
-                            currentEmployees.map((employee) => (
+                            EmployeeData.map((employee) => (
 
                                 <div
                                     key={employee.id}
@@ -266,7 +270,7 @@ const MiddleComponent = () => {
                                     <div className='mt-2 mb-4'>
 
                                         <img
-                                            src={employee.image[0]}
+                                            src={employee.image}
                                             alt={employee.name}
                                             className='w-30 h-30 rounded-full object-cover overflow-auto'
                                         />

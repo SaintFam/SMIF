@@ -1,7 +1,12 @@
 import Employer from "../models/userModel.js";
 import cloudinary from "../config/cloudinary.js";
 import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken"
 
+
+const createToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+}
 
 export const LoginAdmin = async (req, res) => {
     try {
@@ -26,10 +31,14 @@ export const LoginAdmin = async (req, res) => {
                 message: "Password Is Incorrect"
             })
         }
+
+        const token = createToken(employee._id)
+
         //Login Successfull
         res.status(200).json({
             message: "Login SuccessFully",
-            success: true
+            success: true,
+            token
         })
 
     } catch (error) {

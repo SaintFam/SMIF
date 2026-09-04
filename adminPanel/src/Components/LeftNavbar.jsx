@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import { assets, DetailEmp } from '../assets/assets'
 import { FaUser } from "react-icons/fa";
 import { IoMdHome } from "react-icons/io";
@@ -9,12 +10,12 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 
 const menuItems = [
-    { name: "DashBoard", icon: <IoMdHome /> },
-    { name: "Employees", icon: <FaUser />, active: true },
-    { name: "Computer Assign", icon: <RiComputerFill /> },
-    { name: "Report", icon: <FaFileAlt /> },
-    { name: "Users & Roles", icon: <FaUserShield /> },
-    { name: "Settings", icon: <IoSettingsOutline /> },
+    { name: "DashBoard", icon: <IoMdHome />, path: "/dashbord", end: true },
+    { name: "Employees", icon: <FaUser />, path: "/dashbord/employees" },
+    { name: "Computer Assign", icon: <RiComputerFill />, path: "/dashbord/computerassign" },
+    { name: "Report", icon: <FaFileAlt />, path: "/dashbord/report" },
+    { name: "Users & Roles", icon: <FaUserShield />, path: "/dashbord/users-roles" },
+    { name: "Settings", icon: <IoSettingsOutline />, path: "/dashbord/settings" },
 
 
 ]
@@ -37,13 +38,18 @@ const LeftNavbar = () => {
 
             {/** Menu Items  */}
             <div className='mt-5 px-4 space-y-2'>
-                {menuItems.map((item, index) => (
-                    <button className={`w-full hover:transition hover:duration-300 
+                {menuItems.map((item) => (
+                    <NavLink
+                        to={item.path}
+                        end={item.end}
+                        className={({ isActive }) => `w-full hover:transition hover:duration-300 
                         hover:bg-white hover:text-yellow-700 flex rounded-xl items-center gap-3 px-4 py-1 
-                    ${item.active ? "bg-white text-yellow-700" : "text-white"}`} key={index} >
+                    ${isActive ? "bg-white text-yellow-700" : "text-white"}`}
+                        key={item.path}
+                    >
                         <span >{item.icon}</span>
                         <span>{item.name}</span>
-                    </button>
+                    </NavLink>
                 ))
                 }
             </div>

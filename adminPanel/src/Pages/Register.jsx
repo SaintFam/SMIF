@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import RegisterTitle from '../Components/RegisterTitle'
 import PersonalInfo from '../Components/PersonalInfo'
 import JobInfo from '../Components/JobInfo'
@@ -9,11 +9,18 @@ import FormSub from '../Components/FormSub'
 import axios from "axios"
 import { backend_url } from "../App"
 import { toast } from 'sonner'
+import { AdminContext } from '../Context/adminContext'
 
 const Register = () => {
+    const { token, setToken, navigate } = useContext(AdminContext)
+    useEffect(() => {
+        if (!token) {
+            navigate("/");
+        }
+    }, [token, navigate]);
 
     const [employee, setEmployee] = useState({
-        firstName: "Musana",
+        firstName: "",
         lastName: "",
         gender: "",
         nationalId: "",
@@ -80,6 +87,7 @@ const Register = () => {
                         border: "1px solid #A87400",
                     },
                 },)
+                navigate("/dashbord")
 
                 console.log("Data Saved SuccessFull")
             } else {

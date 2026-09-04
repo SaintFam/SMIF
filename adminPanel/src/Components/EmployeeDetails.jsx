@@ -8,7 +8,7 @@ import { PiPencilLineFill } from "react-icons/pi";
 const EmployeeDetails = () => {
     return (
 
-        <div className='  bg-white flex items-start  p-4'>
+        <div className=' w-[300px]  bg-white flex items-start  p-4'>
             {/** Employee Details */}
             <div className='w-full h-auto border border-yellow-500 relative   overflow-hidden shadow-2xl rounded-xl'>
                 {/** Close Button */}
@@ -21,7 +21,6 @@ const EmployeeDetails = () => {
                 </div>
                 {
                     DetailEmp.map((employe) => (
-
                         <div>
                             <div key={employe.id} className='flex flex-row gap-5  lg:m-5 shadow-xl p-4'>
                                 {/** Profile  Details */}
