@@ -44,6 +44,8 @@ function StatusBadge({ status }) {
 
 const ComputerAssigned = () => {
 
+    const { navigate } = useContext(AdminContext)
+
     // Stores the page we are currently viewing
     const [currentPage, setCurrentPage] = useState(1);
     // Number of employees displayed on one page
@@ -226,7 +228,8 @@ const ComputerAssigned = () => {
 
                     {/** Add Employee Button */}
                     <button
-                        onClick={() => { navigate("/register") }}
+
+                        onClick={() => { navigate("/dashboard/registercomputer") }}
                         className='flex items-center justify-center gap-2 px-5 py-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded-lg'>
 
                         <GoPlus />

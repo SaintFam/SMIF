@@ -8,6 +8,7 @@ import MiddleComponent from './Components/MiddleComponent'
 import ProctectedRoute from './Components/ProctectedRoute'
 import ComputerAssigned from './Components/ComputerAssigned'
 import ModernMiddleComp from './Components/ModernMiddleComp';
+import RegisterComputer from './Components/RegisterComputer';
 
 export const backend_url = import.meta.env.VITE_BACKEND_URL
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route index element={<MiddleComponent />} />
           <Route path="employees" element={<ModernMiddleComp />} />
           <Route path="computerassign" element={<ComputerAssigned />} />
+          <Route path="registercomputer" element={<RegisterComputer />} />
 
         </Route>
 
