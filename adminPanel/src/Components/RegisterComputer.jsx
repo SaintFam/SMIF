@@ -80,6 +80,18 @@ const RegisterComputer = () => {
     };
 
 
+
+    // Remove selected employee
+
+    const removeEmployee = () => {
+        setFormData((prev) => ({
+            ...prev,
+            employee: null,
+        }));
+
+        setSearch("");
+    };
+
     const employeeRef = useRef(null);
 
     return (
@@ -280,6 +292,34 @@ const RegisterComputer = () => {
                                         placeholder="Search"
                                         className="h-10 w-full rounded-lg border border-[#dfcc86] bg-white pl-9 pr-10 text-sm outline-none focus:border-[#c99b16] focus:ring-2 focus:ring-[#c99b16]/10"
                                     />
+                                    {formData.employee ? (
+                                        <button
+                                            type="button"
+                                            onClick={removeEmployee}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500"
+                                        >
+                                            <X size={17} />
+                                        </button>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                setEmployeeOpen((prev) => !prev)
+                                            }
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                        >
+                                            {employeeOpen ? (
+                                                <ChevronUp size={17} />
+                                            ) : (
+                                                <ChevronDown size={17} />
+                                            )}
+                                        </button>
+                                    )}
+                                </div>
+
+                                {/* SEARCH RESULTS  */}
+                                <div className="absolute left-0 right-0 z-50 mt-1 max-h-60 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl">
+
                                 </div>
                             </div>
                         </div>
