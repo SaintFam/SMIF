@@ -357,17 +357,17 @@ const RegisterComputer = () => {
                                             filteredEmployee.map((employee) => (
                                                 <button
                                                     key={employee.id}
-                                                    // Prevent selecting an employee from submitting the form.
+
                                                     type="button"
                                                     onClick={() => {
-                                                        // Store the clicked employee for the selected preview.
+
                                                         setFormData((prev) => ({
                                                             ...prev,
                                                             employee,
                                                         }));
-                                                        // Keep the selected employee name in the search field.
+
                                                         setSearch(employee.name);
-                                                        // Close the employee results after selection.
+
                                                         setEmployeeOpen(false);
                                                     }}
                                                     className="flex w-full items-center gap-3 border-b border-gray-100 px-3 py-3"
