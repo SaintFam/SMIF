@@ -94,6 +94,12 @@ const RegisterComputer = () => {
 
     const employeeRef = useRef(null);
 
+
+    {/** Filter Employess */ }
+    const filteredEmployee = employees.filter((employee) =>
+        employee.name.toLowerCase().includes(search.toLowerCase())
+    )
+
     return (
         <div className="min-h-screen bg-[#fafafa] px-4 py-8 md:px-8">
             <div className="mx-auto max-w-[1200px]">
@@ -258,6 +264,33 @@ const RegisterComputer = () => {
                                     />
                                 </div>
                             </div>
+                            {/* Assignment Status */}
+                            <div>
+                                <label className="mb-2 block text-sm font-medium text-gray-800">
+                                    Assignment Status
+                                </label>
+
+                                <div className="relative">
+                                    <select
+                                        name="assignmentStatus"
+                                        value={formData.assignmentStatus}
+                                        onChange={handleChange}
+                                        className="h-10 w-full appearance-none rounded-lg border border-gray-200 bg-gray-50 px-3 pr-10 text-sm outline-none focus:border-[#c99b16]"
+                                    >
+                                        <option>Assigned</option>
+                                        <option>Returned</option>
+                                        <option>Pending</option>
+                                        <option>Lost</option>
+                                        <option>Damaged</option>
+                                    </select>
+
+                                    <ChevronDown
+                                        size={17}
+                                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    />
+                                </div>
+                            </div>
+
                         </div>
                     </section>
 
@@ -317,13 +350,95 @@ const RegisterComputer = () => {
                                     )}
                                 </div>
 
-                                {/* SEARCH RESULTS  */}
-                                <div className="absolute left-0 right-0 z-50 mt-1 max-h-60 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl">
+                                {/* SEARCH RESULTS */}
+                                {employeeOpen && (
+                                    <div className="absolute left-0 right-0 z-50 mt-1 max-h-60 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-xl">
+                                        {filteredEmployee.length > 0 ? (
+                                            filteredEmployee.map((employee) => (
+                                                <button
+                                                    key={employee.id}
+                                                    // Prevent selecting an employee from submitting the form.
+                                                    type="button"
+                                                    onClick={() => {
+                                                        // Store the clicked employee for the selected preview.
+                                                        setFormData((prev) => ({
+                                                            ...prev,
+                                                            employee,
+                                                        }));
+                                                        // Keep the selected employee name in the search field.
+                                                        setSearch(employee.name);
+                                                        // Close the employee results after selection.
+                                                        setEmployeeOpen(false);
+                                                    }}
+                                                    className="flex w-full items-center gap-3 border-b border-gray-100 px-3 py-3"
+                                                >
+                                                    <img src={employee.image} alt=""
+                                                        className="h-9 w-9 rounded-full object-cover" />
+                                                    <div>
+                                                        <p className="text-sm font-medium text-gray-900">{employee.name}</p>
+                                                        <p className="text-xs text-gray-500">{employee.position}</p>
+                                                    </div>
+                                                </button>
+                                            ))
+                                        ) : (
+                                            <div>
+                                                No Employee Found
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
 
-                                </div>
+                            {/* SELECTED EMPLOYEE */}
+                            <div className="flex items-center md:pt-7">
+
+                                {formData.employee ? (
+                                    <div className="flex items-center gap-3">
+
+                                        <img
+                                            src={formData.employee.image}
+                                            alt={formData.employee.name}
+                                            className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-100"
+                                        />
+
+                                        <div>
+                                            <p className="font-semibold text-gray-900">
+                                                {formData.employee.name}
+                                            </p>
+
+                                            <p className="text-sm text-gray-500">
+                                                {formData.employee.position}
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                ) : (
+                                    <div className="text-sm text-gray-400">
+                                        No employee selected
+                                    </div>
+                                )}
+
                             </div>
                         </div>
                     </section>
+                    {/*  BUTTONS */}
+                    <div className="flex flex-col-reverse gap-3 border-t border-gray-100 px-5 py-4 sm:flex-row sm:justify-center md:px-6">
+
+                        <button
+                            type="button"
+                            className="rounded-lg bg-gray-200 px-6 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-300"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="rounded-lg bg-[#dda900] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#c99a00] active:scale-[0.98]"
+                        >
+                            Create Assignment
+                        </button>
+
+                    </div>
                 </form>
             </div> </div>
     )
