@@ -51,6 +51,7 @@ const RegisterComputer = () => {
     const [formData, setFormData] = useState({
         deviceName: "",
         serialNumber: "",
+        codefication: "",
         operatingSystem: "Windows 11 Pro",
         processor: "",
         ram: "",
@@ -100,6 +101,11 @@ const RegisterComputer = () => {
         employee.name.toLowerCase().includes(search.toLowerCase())
     )
 
+    const handleSubmint = (e) => {
+        e.preventDefault();
+        console.log(formData)
+    }
+
     return (
         <div className="min-h-screen bg-[#fafafa] px-4 py-8 md:px-8">
             <div className="mx-auto max-w-[1200px]">
@@ -109,7 +115,7 @@ const RegisterComputer = () => {
                 </h1>
 
                 <form
-
+                    onSubmit={handleSubmint}
                     className="overflow-visible rounded-xl border border-gray-100 bg-white shadow-[0_3px_20px_rgba(0,0,0,0.06)]"
                 >
                     <section className="p-5 md:p-6">
@@ -143,6 +149,20 @@ const RegisterComputer = () => {
                                     type="text"
                                     name="serialNumber"
                                     value={formData.serialNumber}
+                                    onChange={handleChange}
+                                    className="h-10 w-full rounded-lg border border-[#dfcc86] px-3 text-sm outline-none focus:border-[#c99b16] focus:ring-2 focus:ring-[#c99b16]/10"
+                                />
+                            </div>
+                            {/* CODEFICATION */}
+                            <div>
+                                <label className="mb-2 block text-sm font-medium text-gray-800">
+                                    CODEFICATION
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="codefication"
+                                    value={formData.codefication}
                                     onChange={handleChange}
                                     className="h-10 w-full rounded-lg border border-[#dfcc86] px-3 text-sm outline-none focus:border-[#c99b16] focus:ring-2 focus:ring-[#c99b16]/10"
                                 />
