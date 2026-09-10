@@ -2,6 +2,7 @@ import Employer from "../models/userModel.js";
 import cloudinary from "../config/cloudinary.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken"
+import ComputerAssignment from "../models/ComputerAssignedModel.js";
 
 
 const createToken = (id) => {
@@ -152,6 +153,89 @@ export const getAllEmployers = async (req, res) => {
     } catch (error) {
         console.error("Error fetching employers:", error);
         res.status(500).json({ message: "Internal server error", success: false });
+    }
+}
+
+export const AssignComputerToEmployer = async (req, res) => {
+    try {
+        const { deviceName,
+            serialNumber,
+            codefication,
+            operatingSystem,
+            processor,
+            ram,
+            storage,
+            deviceType,
+            employee,
+            assignmentStatus,
+            assignmentDate,
+        } = req.body
+
+        if (!deviceName ||
+            !serialNumber
+            || !codefication
+            || !operatingSystem
+            || !processor ||
+            !ram ||
+            !storage ||
+            !deviceType ||
+            !employee ||
+            !assignmentStatus ||
+            !assignmentDate) {
+            return res
+                .status(400)
+                .json({ success: false, message: "All fields are required" });
+        }
+
+        // Check Serial Number
+        const isSerialNumberExist = await ComputerAssignment.findOne({ serialNumber })
+        if (isSerialNumberExist) {
+            return res.status(409)
+                .json({
+                    success: false,
+                    message: "Computer With This Serial Number Already Exist"
+                })
+        }
+
+        // Check Codefication
+        const isCodeficationExist = await ComputerAssignment.findOne({ codefication })
+        if (isCodeficationExist) {
+            return res.status(409)
+                .json({
+                    success: false,
+                    message: "Computer With This Codefication Already Exist"
+                })
+        }
+
+        // Create Assignement In DB
+        const assignment = await ComputerAssignment.create({
+            deviceName,
+            serialNumber,
+            codefication,
+            operatingSystem,
+            processor,
+            ram,
+            storage,
+            deviceType,
+            employee,
+            assignmentStatus,
+            assignmentDate,
+        })
+
+        // Check For Assigned Computer On Employee
+        const Response = await ComputerAssignment.findById(assignment._id)
+
+        return res
+            .status(201)
+            .json({
+                success: true,
+                message: "Computer Assigned Successfull",
+                assignment: Response
+            })
+
+    } catch (error) {
+        console.error("Create Computer Assignment Error :", error)
+        return res.status(500).json({ success: false, message: "Server Error" })
     }
 }
 

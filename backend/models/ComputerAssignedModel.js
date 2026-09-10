@@ -51,12 +51,7 @@ const computerAssignmentSchema = new mongoose.Schema(
             required: true,
         },
 
-        assignedBy: {
-            type: String,
-            required: true,
-            default: "Admin User",
-            trim: true,
-        },
+
 
         assignmentStatus: {
             type: String,
@@ -69,15 +64,9 @@ const computerAssignmentSchema = new mongoose.Schema(
             required: true,
         },
 
-        notes: {
-            type: String,
-            trim: true,
-            default: "",
-        },
+
     },
-    {
-        timestamps: true,
-    }
+
 );
 
 const ComputerAssignment = mongoose.model(

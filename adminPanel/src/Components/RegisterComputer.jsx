@@ -58,10 +58,8 @@ const RegisterComputer = () => {
         storage: "",
         deviceType: "Laptop",
         employee: null,
-        assignedBy: "Admin User",
         assignmentStatus: "Assigned",
         assignmentDate: "",
-        notes: "",
     });
 
 
