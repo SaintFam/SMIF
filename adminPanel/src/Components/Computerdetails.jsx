@@ -1,4 +1,5 @@
 import React from "react";
+import { useOutletContext } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaComputer, FaLocationDot } from "react-icons/fa6";
 import { LuPencilLine } from "react-icons/lu";
@@ -11,11 +12,20 @@ const Computerdetails = ({ employee, onClose }) => {
     // crashing on employee.photo below.
     if (!employee) return null;
 
+    const {
+        isExpanded,
+        setIsExpanded
+    } = useOutletContext()
+
+
     return (
         <div className="relative bg-white w-full h-full overflow-y-auto shadow-2xl rounded-xl border border-gray-200">
             {/*closing button*/}
             <button
-                onClick={onClose}
+                onClick={() => {
+                    onClose();
+                    setIsExpanded(true);
+                }}
                 className="absolute text-gray-600 top-1 right-3"
             >
                 x

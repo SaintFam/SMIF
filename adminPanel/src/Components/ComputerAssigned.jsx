@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useOutletContext } from 'react-router-dom';
 
 import { CiSearch } from "react-icons/ci";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -46,15 +47,14 @@ function StatusBadge({ status }) {
 
 const ComputerAssigned = () => {
 
+    const {
+        isExpanded,
+        setIsExpanded
+    } = useOutletContext()
 
-    // Which employee row is selected — shown in the details panel on the right.
-    // Defaults to the first "active" employee, falling back to the first row.
-    const defaultEmployee =
-        CompEmployees.find((emp) => emp.status === "active") ||
-        CompEmployees[0];
-    const [selectedEmployeeId, setSelectedEmployeeId] = useState(
-        defaultEmployee?.id,
-    );
+
+    // No details panel is shown until an employee row is selected.
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
     const selectedEmployee =
         CompEmployees.find((emp) => emp.id === selectedEmployeeId);
 
@@ -277,8 +277,11 @@ const ComputerAssigned = () => {
                                 <tbody>
                                     {CompEmployees.map((employee) => (
                                         <tr key={employee.id}
-                                            onClick={() => setSelectedEmployeeId(employee.id)}
-                                            className=''>
+                                            onClick={() => {
+                                                setSelectedEmployeeId(employee.id);
+                                                setIsExpanded(false);
+                                            }}
+                                            className='cursor-pointer hover:bg-gray-50 border-b border-gray-200'>
                                             <td className='px-2 py-5 flex flex-row gap-2 '>
                                                 <div className='flex items-center gap-4'>
                                                     <img src={employee.employeeImage} alt=""

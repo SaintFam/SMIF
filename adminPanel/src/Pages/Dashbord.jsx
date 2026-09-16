@@ -1,29 +1,67 @@
-import React, { useContext, useEffect } from 'react'
-import MiddleComponent from '../Components/MiddleComponent'
-import EmployeeDetails from '../Components/EmployeeDetails'
-import LeftNavbar from '../Components/LeftNavbar'
+import React, { useContext, useEffect, useState } from 'react'
 import { AdminContext } from '../Context/adminContext'
 import { Outlet } from 'react-router-dom'
+import LeftNavbar from '../Components/LeftNavbar'
+
 
 const Dashbord = () => {
-    const { token, setToken, navigate } = useContext(AdminContext)
+
+    const { token, navigate } = useContext(AdminContext)
+
+    // Sidebar state
+    const [isSidebarExpanded, setIsSidebarExpanded] = useState(true)
+
+
+    // ============================================================
+    // CHECK LOGIN
+    // ============================================================
+
     useEffect(() => {
+
         if (!token) {
             navigate("/")
         }
-    }, [token])
+
+    }, [token, navigate])
+
+
     return (
-        <div className='flex flex-row'>
-            {/** Left Navigator Bar Div */}
-            <div>
-                <LeftNavbar />
-            </div>
-            {/** MIDDLE COMPONENT CHANDED BY LEFTSIDE NAVS  */}
-            <main className='ml-60 min-w-0 flex-1'>
-                <Outlet />
+
+        <div className="min-h-screen">
+
+            {/* ====================================================
+                LEFT NAVBAR
+            ===================================================== */}
+
+            <LeftNavbar
+                isExpanded={isSidebarExpanded}
+                setIsExpanded={setIsSidebarExpanded}
+            />
+
+
+            {/* ====================================================
+                MAIN CONTENT
+            ===================================================== */}
+
+            <main
+                className={`
+        min-h-screen
+        min-w-0
+        transition-all
+        duration-300
+        ${isSidebarExpanded ? "ml-60" : "ml-[72px]"}
+    `}
+            >
+                <Outlet
+                    context={{
+                        isExpanded: isSidebarExpanded,
+                        setIsExpanded: setIsSidebarExpanded
+                    }}
+                />
             </main>
 
         </div>
+
     )
 }
 
