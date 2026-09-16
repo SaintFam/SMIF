@@ -168,8 +168,24 @@ export const AssignComputerToEmployer = async (req, res) => {
             deviceType,
             employee,
             assignmentStatus,
-            assignmentDate,
+
         } = req.body
+
+        console.log("REQUEST BODY:", req.body);
+
+        console.log({
+            deviceName,
+            serialNumber,
+            codefication,
+            operatingSystem,
+            processor,
+            ram,
+            storage,
+            deviceType,
+            employee,
+            assignmentStatus,
+
+        });
 
         if (!deviceName ||
             !serialNumber
@@ -180,8 +196,8 @@ export const AssignComputerToEmployer = async (req, res) => {
             !storage ||
             !deviceType ||
             !employee ||
-            !assignmentStatus ||
-            !assignmentDate) {
+            !assignmentStatus
+        ) {
             return res
                 .status(400)
                 .json({ success: false, message: "All fields are required" });
@@ -219,7 +235,7 @@ export const AssignComputerToEmployer = async (req, res) => {
             deviceType,
             employee,
             assignmentStatus,
-            assignmentDate,
+
         })
 
         // Check For Assigned Computer On Employee

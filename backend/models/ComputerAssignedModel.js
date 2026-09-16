@@ -61,7 +61,7 @@ const computerAssignmentSchema = new mongoose.Schema(
 
         assignmentDate: {
             type: Date,
-            required: true,
+            default: Date.now,
         },
 
 

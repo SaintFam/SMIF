@@ -6,8 +6,15 @@ import {
     CalendarDays,
     X,
 } from "lucide-react";
+import { useContext } from "react";
+import { AdminContext } from "../Context/adminContext";
+import axios from "axios";
+import { backend_url } from "../App";
+import { toast } from "sonner";
 
 const RegisterComputer = () => {
+
+    const { EmployeeData, token } = useContext(AdminContext)
 
     const employees = [
         {
@@ -95,13 +102,46 @@ const RegisterComputer = () => {
 
 
     {/** Filter Employess */ }
-    const filteredEmployee = employees.filter((employee) =>
-        employee.name.toLowerCase().includes(search.toLowerCase())
+    const filteredEmployee = EmployeeData.filter((employee) =>
+        employee.firstName.toLowerCase().includes(search.toLowerCase())
     )
 
-    const handleSubmint = (e) => {
+    const handleSubmint = async (e) => {
         e.preventDefault();
-        console.log(formData)
+
+        try {
+            const formdata = new FormData
+            formdata.append("deviceName", formData.deviceName)
+            formdata.append("serialNumber", formData.serialNumber)
+            formdata.append("codefication", formData.codefication)
+            formdata.append("operatingSystem", formData.operatingSystem)
+            formdata.append("processor", formData.processor)
+            formdata.append("ram", formData.ram)
+            formdata.append("storage", formData.storage)
+            formdata.append("deviceType", formData.deviceType)
+            formdata.append("employee", formData.employee)
+            formdata.append("assignmentStatus", formData.assignmentStatus)
+            formdata.append("assignmentDate", formData.assignmentDate)
+
+            const response = await axios.post(
+                backend_url + "/api/employers/assign", formData, {
+                headers: {
+                    token
+                }
+            }
+            )
+
+            if (response.data.success) {
+                toast.success(response.data.message)
+            } else {
+                toast.error("Computer Not Assigned ")
+            }
+        } catch (error) {
+            console.log(error)
+            console.log(error.response.data.message)
+        }
+
+
     }
 
     return (
@@ -381,20 +421,20 @@ const RegisterComputer = () => {
 
                                                         setFormData((prev) => ({
                                                             ...prev,
-                                                            employee,
+                                                            employee: employee._id,
                                                         }));
 
-                                                        setSearch(employee.name);
+                                                        setSearch(employee.firstName);
 
                                                         setEmployeeOpen(false);
                                                     }}
-                                                    className="flex w-full items-center gap-3 border-b border-gray-100 px-3 py-3"
+                                                    className="flex w-full gap-3 border-b border-gray-100 px-3 py-3 text-left"
                                                 >
                                                     <img src={employee.image} alt=""
                                                         className="h-9 w-9 rounded-full object-cover" />
                                                     <div>
-                                                        <p className="text-sm font-medium text-gray-900">{employee.name}</p>
-                                                        <p className="text-xs text-gray-500">{employee.position}</p>
+                                                        <p className="text-sm font-medium text-gray-900">{employee.firstName}{"  "}{employee.lastName}</p>
+                                                        <p className="text-xs text-gray-500">{employee.jobTitle}</p>
                                                     </div>
                                                 </button>
                                             ))
@@ -415,17 +455,17 @@ const RegisterComputer = () => {
 
                                         <img
                                             src={formData.employee.image}
-                                            alt={formData.employee.name}
+                                            alt={formData.employee.firstName}
                                             className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-100"
                                         />
 
                                         <div>
                                             <p className="font-semibold text-gray-900">
-                                                {formData.employee.name}
+                                                {formData.employee.firstName}{ }
                                             </p>
 
                                             <p className="text-sm text-gray-500">
-                                                {formData.employee.position}
+                                                {formData.employee.jobTitle}
                                             </p>
                                         </div>
 
@@ -458,7 +498,7 @@ const RegisterComputer = () => {
 
                     </div>
                 </form>
-            </div> </div>
+            </div> </div >
     )
 }
 

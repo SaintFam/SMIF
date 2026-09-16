@@ -10,12 +10,14 @@ import { FaPhone } from "react-icons/fa6";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { AdminContext } from '../Context/adminContext';
+import Computerdetails from './Computerdetails';
 
 
 
 
 
 function StatusBadge({ status }) {
+
     const styles = {
         Assigned: "bg-green-50 text-green-600",
         Maintenance: "bg-blue-50 text-blue-600",
@@ -44,7 +46,20 @@ function StatusBadge({ status }) {
 
 const ComputerAssigned = () => {
 
+
+    // Which employee row is selected — shown in the details panel on the right.
+    // Defaults to the first "active" employee, falling back to the first row.
+    const defaultEmployee =
+        CompEmployees.find((emp) => emp.status === "active") ||
+        CompEmployees[0];
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState(
+        defaultEmployee?.id,
+    );
+    const selectedEmployee =
+        CompEmployees.find((emp) => emp.id === selectedEmployeeId);
+
     const { navigate } = useContext(AdminContext)
+
 
     // Stores the page we are currently viewing
     const [currentPage, setCurrentPage] = useState(1);
@@ -244,115 +259,130 @@ const ComputerAssigned = () => {
             </div>
 
             <div className='bg-white p-4 '>
-                <div className='overflow-hidden border border-gray-300 rounded-xl bg-white shadow-sm'>
-                    {/** Table */}
-                    <div className='overflow-x-auto'>
-                        <table className='w-full min-w-[750px] border-collapse'>
-                            {/** Table  Headers*/}
-                            <thead>
-                                <tr className='text-gray-400'>
-                                    <th className='w-[25%] text-sm px-5 py-5 text-left font-semibold '>Employees</th>
-                                    <th className='w-[33%] text-sm px-5 py-5 text-left font-semibold '>Computer Details</th>
-                                    <th className='w-[15%] text-sm px-5 py-5 text-left font-semibold '>Status</th>
-                                    <th className='w-[20%] text-sm px-5 py-5 text-left font-semibold '>Date Assigned</th>
-                                    <th className='w-[9%] text-sm px-5 py-5 text-left font-semibold '>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {CompEmployees.map((employee) => (
-                                    <tr key={employee.id} className=''>
-                                        <td className='px-2 py-5 flex flex-row gap-2 '>
-                                            <div className='flex items-center gap-4'>
-                                                <img src={employee.employeeImage} alt=""
-                                                    className='w-10 h-10 rounded-full' />
-                                            </div>
-                                            <div className='text-sm flex flex-col gap-1'>
-                                                <p>{employee.name}</p>
-                                                <p className='text-gray-500 text-xs'>{employee.role}</p>
-                                            </div>
-                                        </td>
-                                        {/** ---------------------Computer Details-------------------------- */}
-                                        <td className=''>
-                                            {employee.computer ? (
-                                                <div className='flex items-center px-2 gap-4 '>
-                                                    <div className='flex h-10 w-10 items-center justify-center '>
-                                                        <img src={employee.computerImage} alt="" className='max-h-10 max-w-10 object-contain' />
-                                                    </div>
-                                                    {/** Computer Info */}
-                                                    <div>
-                                                        <p className="text-sm font-semibold text-gray-800">
-                                                            {employee.computer}
-                                                        </p>
-                                                        <p className="mt-1 text-[10px] text-gray-500">
-                                                            SN: {employee.serial} • {employee.os}
-                                                        </p>
-                                                        <span className="text-[9px] inline-block rounded-md bg-yellow-100 px-2 py-1  font-medium text-yellow-700">
-                                                            {employee.specs}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <div className="flex w-fit items-center gap-3 rounded-lg border border-gray-200 px-5 py-3">
-                                                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50">
-                                                        <svg
-                                                            className="h-6 w-6 text-gray-400"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth="1.5"
-                                                                d="M4 5h16v11H4zM8 20h8M12 16v4"
-                                                            />
-                                                        </svg>
-                                                    </div>
-
-                                                    <div>
-                                                        <p className="text-sm text-gray-500">
-                                                            No Computer Assigned
-                                                        </p>
-
-                                                        <button className="mt-1 text-sm font-medium text-yellow-600 hover:text-yellow-700">
-                                                            Assign Computer
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </td>
-                                        {/* ================= STATUS ================= */}
-                                        <td className="px-5 py-5">
-                                            <StatusBadge status={employee.status} />
-                                        </td>
-
-                                        {/* ================= DATE ================= */}
-                                        <td className="px-5 py-5 text-sm text-gray-600">
-                                            {employee.date}
-                                        </td>
-                                        {/* ================= ACTION ================= */}
-                                        <td className="px-5 py-5 text-center">
-                                            {employee.status === "Not Assigned" ? (
-                                                <button
-                                                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-yellow-400 text-xl text-yellow-50 transition hover:bg-yellow-50"
-                                                >
-                                                    +
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg border border-yellow-400 text-lg font-bold text-yellow-500 transition hover:bg-yellow-50"
-                                                    aria-label="Computer actions"
-                                                >
-                                                    <BsThreeDots className="h-5 w-5" />
-                                                </button>
-                                            )}
-                                        </td>
+                <div className='flex flex-col items-stretch gap-6 lg:flex-row'>
+                    <div className='min-w-0 flex-1 overflow-hidden border border-gray-300 rounded-xl bg-white shadow-sm'>
+                        {/** Table */}
+                        <div className='overflow-x-auto'>
+                            <table className='w-full min-w-[750px] border-collapse'>
+                                {/** Table  Headers*/}
+                                <thead>
+                                    <tr className='text-gray-400'>
+                                        <th className='w-[25%] text-sm px-5 py-5 text-left font-semibold '>Employees</th>
+                                        <th className='w-[33%] text-sm px-5 py-5 text-left font-semibold '>Computer Details</th>
+                                        <th className='w-[15%] text-sm px-5 py-5 text-left font-semibold '>Status</th>
+                                        <th className='w-[20%] text-sm px-5 py-5 text-left font-semibold '>Date Assigned</th>
+                                        <th className='w-[9%] text-sm px-5 py-5 text-left font-semibold '>Action</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {CompEmployees.map((employee) => (
+                                        <tr key={employee.id}
+                                            onClick={() => setSelectedEmployeeId(employee.id)}
+                                            className=''>
+                                            <td className='px-2 py-5 flex flex-row gap-2 '>
+                                                <div className='flex items-center gap-4'>
+                                                    <img src={employee.employeeImage} alt=""
+                                                        className='w-10 h-10 rounded-full' />
+                                                </div>
+                                                <div className='text-sm flex flex-col gap-1'>
+                                                    <p>{employee.name}</p>
+                                                    <p className='text-gray-500 text-xs'>{employee.role}</p>
+                                                </div>
+                                            </td>
+                                            {/** ---------------------Computer Details-------------------------- */}
+                                            <td className=''>
+                                                {employee.computer ? (
+                                                    <div className='flex items-center px-2 gap-4 '>
+                                                        <div className='flex h-10 w-10 items-center justify-center '>
+                                                            <img src={employee.computerImage} alt="" className='max-h-10 max-w-10 object-contain' />
+                                                        </div>
+                                                        {/** Computer Info */}
+                                                        <div>
+                                                            <p className="text-sm font-semibold text-gray-800">
+                                                                {employee.computer}
+                                                            </p>
+                                                            <p className="mt-1 text-[10px] text-gray-500">
+                                                                SN: {employee.serial} • {employee.os}
+                                                            </p>
+                                                            <span className="text-[9px] inline-block rounded-md bg-yellow-100 px-2 py-1  font-medium text-yellow-700">
+                                                                {employee.specs}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex w-fit items-center gap-3 rounded-lg border border-gray-200 px-5 py-3">
+                                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50">
+                                                            <svg
+                                                                className="h-6 w-6 text-gray-400"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth="1.5"
+                                                                    d="M4 5h16v11H4zM8 20h8M12 16v4"
+                                                                />
+                                                            </svg>
+                                                        </div>
+
+                                                        <div>
+                                                            <p className="text-sm text-gray-500">
+                                                                No Computer Assigned
+                                                            </p>
+
+                                                            <button className="mt-1 text-sm font-medium text-yellow-600 hover:text-yellow-700">
+                                                                Assign Computer
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </td>
+                                            {/* ================= STATUS ================= */}
+                                            <td className="px-5 py-5">
+                                                <StatusBadge status={employee.status} />
+                                            </td>
+
+                                            {/* ================= DATE ================= */}
+                                            <td className="px-5 py-5 text-sm text-gray-600">
+                                                {employee.date}
+                                            </td>
+                                            {/* ================= ACTION ================= */}
+                                            <td className="px-5 py-5 text-center">
+                                                {employee.status === "Not Assigned" ? (
+                                                    <button
+                                                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-yellow-400 text-xl text-yellow-50 transition hover:bg-yellow-50"
+                                                    >
+                                                        +
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg border border-yellow-400 text-lg font-bold text-yellow-500 transition hover:bg-yellow-50"
+                                                        aria-label="Computer actions"
+                                                    >
+                                                        <BsThreeDots className="h-5 w-5" />
+                                                    </button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+                    {/* Details panel - sits beside the table on larger screens. */}
+                    {selectedEmployee && (
+                        <div className="w-full flex-shrink-0 lg:w-96">
+                            <Computerdetails
+                                employee={selectedEmployee}
+                                onClose={() => setSelectedEmployeeId(null)}
+                            />
+                        </div>
+                    )}
                 </div>
+
             </div>
 
             <div className='flex items-center justify-center gap-2 mt-8'>
