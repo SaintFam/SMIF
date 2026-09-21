@@ -15,6 +15,12 @@ import { toast } from "sonner";
 const RegisterComputer = () => {
 
     const { EmployeeData, token } = useContext(AdminContext)
+    const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+    const handleEmployeeSelect = (employeeId) => {
+        const employee = EmployeeData.find((emp) => emp._id === employeeId);
+        setSelectedEmployee(employee);
+    };
 
     const employees = [
         {
@@ -425,7 +431,7 @@ const RegisterComputer = () => {
                                                         }));
 
                                                         setSearch(employee.firstName);
-
+                                                        handleEmployeeSelect(employee._id);
                                                         setEmployeeOpen(false);
                                                     }}
                                                     className="flex w-full gap-3 border-b border-gray-100 px-3 py-3 text-left"
@@ -450,22 +456,22 @@ const RegisterComputer = () => {
                             {/* SELECTED EMPLOYEE */}
                             <div className="flex items-center md:pt-7">
 
-                                {formData.employee ? (
+                                {selectedEmployee ? (
                                     <div className="flex items-center gap-3">
 
                                         <img
-                                            src={formData.employee.image}
-                                            alt={formData.employee.firstName}
+                                            src={selectedEmployee.image}
+                                            alt={selectedEmployee.firstName}
                                             className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-100"
                                         />
 
                                         <div>
                                             <p className="font-semibold text-gray-900">
-                                                {formData.employee.firstName}{ }
+                                                {selectedEmployee.firstName} {selectedEmployee.lastName}
                                             </p>
 
                                             <p className="text-sm text-gray-500">
-                                                {formData.employee.jobTitle}
+                                                {selectedEmployee.jobTitle}
                                             </p>
                                         </div>
 

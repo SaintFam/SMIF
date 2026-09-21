@@ -47,7 +47,7 @@ const computerAssignmentSchema = new mongoose.Schema(
 
         employee: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Employee",
+            ref: "Employer",
             required: true,
         },
 

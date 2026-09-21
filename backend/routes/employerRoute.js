@@ -5,6 +5,7 @@ import {
     getAllEmployers,
     LoginAdmin,
     AssignComputerToEmployer,
+    getAllComputerAssignments,
 } from "../controllers/employerController.js";
 import { authUser } from "../middleware/auth.js";
 
@@ -13,5 +14,6 @@ const employerRouter = express.Router();
 employerRouter.post("/register", upload.single("image"), registerEmployer);
 employerRouter.get("/all", getAllEmployers);
 employerRouter.post("/login", LoginAdmin)
-employerRouter.post("/assign",authUser, AssignComputerToEmployer)
+employerRouter.post("/assign", authUser, AssignComputerToEmployer)
+employerRouter.get("/assignments", getAllComputerAssignments)
 export default employerRouter;

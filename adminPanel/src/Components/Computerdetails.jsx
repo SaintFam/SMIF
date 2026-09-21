@@ -42,21 +42,21 @@ const Computerdetails = ({ employee, onClose }) => {
             <div className="flex flex-row gap-2 md:gap-6 lg:m-5 shadow-xl p-4">
                 <div className="flex flex-col gap-4 rounded-full">
                     <img
-                        src={employee.employeeImage}
+                        src={employee.employee.image}
                         alt=""
                         className="rounded-full w-20 h-20 object-cover"
                     />
                 </div>
                 <div>
                     <h3 className="text-xs mt-1 md:text-lg lg:text-xl">
-                        {employee.name}
+                        {employee.employee.firstName} {employee.employee.lastName}
                     </h3>
                     <p className="text-sm md:text-md mt-1 text-yellow-500">
-                        {employee.role}
+                        {employee.employee.jobTitle}
                     </p>
                     <div className="bg-yellow-100">
                         <p className="text-sm md:text-md mt-1 text-yellow-700">
-                            {employee.unit}
+                            {employee.employee.unit}
                         </p>
                     </div>
                 </div>
@@ -68,11 +68,11 @@ const Computerdetails = ({ employee, onClose }) => {
                     <Personinfo label="Processor: " value={employee.processor} />
                     <Personinfo label="Ram: " value={employee.ram} />
                     <Personinfo label="Storage: " value={employee.storage} />
-                    <Personinfo label="Serial Number: " value={employee.serial} />
+                    <Personinfo label="Serial Number: " value={employee.serialNumber} />
                 </Title>
-                <Title icon={<FaLocationDot size={14} />} title="Assignement Date">
-                    <Personinfo label="Date Assigned: " value={employee.date} />
-                    <Personinfo label="Assigned Status: " value={employee.status} />
+                <Title icon={<FaLocationDot size={14} />} title="Assignment Date">
+                    <Personinfo label="Date Assigned: " value={employee.assignmentDate} />
+                    <Personinfo label="Assigned Status: " value={employee.assignmentStatus} />
                 </Title>
                 <div className="flex w-full items-center justify-center">
                     <button className="mt-6 w-4/5 mb-8 py-1 rounded-md flex items-center justify-center gap-2 bg-yellow-500 text-white">

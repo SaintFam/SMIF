@@ -255,3 +255,14 @@ export const AssignComputerToEmployer = async (req, res) => {
     }
 }
 
+export const getAllComputerAssignments = async (req, res) => {
+
+    try {
+        const assignments = await ComputerAssignment.find()
+            .populate("employee", "firstName lastName jobTitle unit image")
+        return res.status(200).json({ success: true, assignments })
+    } catch (error) {
+        console.error("Get All Computer Assignments Error :", error)
+        return res.status(500).json({ success: false, message: "Server Error" })
+    }
+}  

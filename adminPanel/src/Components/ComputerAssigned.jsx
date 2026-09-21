@@ -53,10 +53,11 @@ const ComputerAssigned = () => {
     } = useOutletContext()
 
 
+    const { ComputerAssignments } = useContext(AdminContext)
     // No details panel is shown until an employee row is selected.
     const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
     const selectedEmployee =
-        CompEmployees.find((emp) => emp.id === selectedEmployeeId);
+        ComputerAssignments.find((emp) => emp._id === selectedEmployeeId);
 
     const { navigate } = useContext(AdminContext)
 
@@ -67,7 +68,7 @@ const ComputerAssigned = () => {
     const employeesPerPage = 6;
     // Calculate total number of pages
     const totalPages = Math.ceil(
-        CompEmployees.length / employeesPerPage
+        ComputerAssignments.length / employeesPerPage
     );
 
     const goToPreviousPage = () => {
@@ -244,7 +245,7 @@ const ComputerAssigned = () => {
                     {/** Add Employee Button */}
                     <button
 
-                        onClick={() => { navigate("/dashboard/registercomputer") }}
+                        onClick={() => { navigate("/dashbord/registercomputer") }}
                         className='flex items-center justify-center gap-2 px-5 py-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded-lg'>
 
                         <GoPlus />
@@ -275,40 +276,54 @@ const ComputerAssigned = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {CompEmployees.map((employee) => (
-                                        <tr key={employee.id}
+                                    {ComputerAssignments.map((computer) => (
+                                        <tr key={computer._id}
                                             onClick={() => {
-                                                setSelectedEmployeeId(employee.id);
+                                                setSelectedEmployeeId(computer._id);
                                                 setIsExpanded(false);
                                             }}
                                             className='cursor-pointer hover:bg-gray-50 border-b border-gray-200'>
                                             <td className='px-2 py-5 flex flex-row gap-2 '>
                                                 <div className='flex items-center gap-4'>
-                                                    <img src={employee.employeeImage} alt=""
+                                                    <img src={computer.employee.image} alt=""
                                                         className='w-10 h-10 rounded-full' />
                                                 </div>
                                                 <div className='text-sm flex flex-col gap-1'>
-                                                    <p>{employee.name}</p>
-                                                    <p className='text-gray-500 text-xs'>{employee.role}</p>
+                                                    <p>{computer.employee.firstName} {computer.employee.lastName}</p>
+                                                    <p className='text-gray-500 text-xs'>{computer.employee.jobTitle}</p>
                                                 </div>
                                             </td>
                                             {/** ---------------------Computer Details-------------------------- */}
                                             <td className=''>
-                                                {employee.computer ? (
-                                                    <div className='flex items-center px-2 gap-4 '>
-                                                        <div className='flex h-10 w-10 items-center justify-center '>
-                                                            <img src={employee.computerImage} alt="" className='max-h-10 max-w-10 object-contain' />
+                                                {computer.deviceName ? (
+                                                    <div className=' flex items-center px-2 gap-4 '>
+                                                        <div className=' shadow-xl mb-2 flex h-10 w-10 items-center justify-center '>
+
+                                                            <svg
+                                                                className="h-8 w-8 text-gray-400"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth="1.5"
+                                                                    d="M4 5h16v11H4zM8 20h8M12 16v4"
+                                                                />
+                                                            </svg>
+
                                                         </div>
                                                         {/** Computer Info */}
                                                         <div>
                                                             <p className="text-sm font-semibold text-gray-800">
-                                                                {employee.computer}
+                                                                {computer.deviceName}
                                                             </p>
                                                             <p className="mt-1 text-[10px] text-gray-500">
-                                                                SN: {employee.serial} • {employee.os}
+                                                                SN: {computer.serialNumber} • {computer.operatingSystem}
                                                             </p>
                                                             <span className="text-[9px] inline-block rounded-md bg-yellow-100 px-2 py-1  font-medium text-yellow-700">
-                                                                {employee.specs}
+                                                                {computer.processor}, {computer.ram}, {computer.storage}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -344,16 +359,16 @@ const ComputerAssigned = () => {
                                             </td>
                                             {/* ================= STATUS ================= */}
                                             <td className="px-5 py-5">
-                                                <StatusBadge status={employee.status} />
+                                                <StatusBadge status={computer.assignmentStatus} />
                                             </td>
 
                                             {/* ================= DATE ================= */}
                                             <td className="px-5 py-5 text-sm text-gray-600">
-                                                {employee.date}
+                                                {computer.assignmentDate}
                                             </td>
                                             {/* ================= ACTION ================= */}
                                             <td className="px-5 py-5 text-center">
-                                                {employee.status === "Not Assigned" ? (
+                                                {computer.assignmentStatus === "Not Assigned" ? (
                                                     <button
                                                         className="flex h-9 w-9 items-center justify-center rounded-lg border border-yellow-400 text-xl text-yellow-50 transition hover:bg-yellow-50"
                                                     >

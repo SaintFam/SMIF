@@ -8,7 +8,24 @@ export const AdminContext = createContext();
 const AdminContextProvider = (props) => {
     const navigate = useNavigate();
     const [EmployeeData, setEmployeeData] = useState([])
+    const [ComputerAssignments, setComputerAssignments] = useState([])
     const [token, setToken] = useState(localStorage.getItem("token") || null)
+
+    {/** FUNCTION FOR FETCHING ALL COMPUTER ASSIGNMENTS IN DATABASE*/ }
+    const fetchComputerAssignments = async () => {
+        try {
+            const response = await axios.get(`${backend_url}/api/employers/assignments`)
+            if (response.data.success) {
+                setComputerAssignments(response.data.assignments)
+                console.log("Computer Assignments:", response.data.assignments)
+            } else {
+                toast.error(response.data.message)
+            }
+        } catch (error) {
+            console.error("Error fetching Computer Assignments", error)
+            toast.error("An Error Occurred While Fetching Computer Assignments")
+        }
+    }
 
     {/** FUNCTION FOR FETCHING ALL EMPLOYEES IN DATABASE*/ }
     const fetchEmployee = async () => {
@@ -29,6 +46,7 @@ const AdminContextProvider = (props) => {
 
     useEffect(() => {
         fetchEmployee()
+        fetchComputerAssignments()
 
     }, [])
 
@@ -40,6 +58,7 @@ const AdminContextProvider = (props) => {
     const value = {
         navigate,
         EmployeeData,
+        ComputerAssignments,
         token,
         setToken
 
